@@ -39,7 +39,7 @@ document.getElementById('patientForm').addEventListener('submit', function(e) {
     };
     
     // Send data to server (we'll use FormSubmit.co as a simple solution)
-    fetch('https://formsubmit.co/945ae95f918d685215987f707754e92b', {
+    fetch('https://formsubmit.co/aarogyaaahar4@gmail.com', {
         method: 'POST',
         headers: { 
             'Content-Type': 'application/json',
