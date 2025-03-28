@@ -69,9 +69,28 @@
             color: white;
             margin-top: 2rem;
         }
+        .watermark {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            opacity: 0.15;
+            z-index: -1; /* Places it behind content */
+            width: 100px; /* Adjust size as needed */
+            height: auto;
+            pointer-events: none; /* Allows clicking through it */
+            filter: grayscale(100%) brightness(1.2); /* Makes logo subtle */
+        }
+        
+        @media (max-width: 768px) {
+            .watermark {
+                width: 70px; /* Smaller on mobile */
+                opacity: 0.1; /* More transparent */
+            }
+        }
     </style>
 </head>
 <body>
+     <img src="aarogyaAaharlogo.png" alt="Clinic Logo Watermark" class="watermark">
     <header>
         <h1><strong>Aarogya Aahar</strong></h1>
         <p>Homeopathy to cure , Diet to Sustain! </p>
