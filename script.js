@@ -1,80 +1,87 @@
-document.getElementById('patientForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // Form validation
-    const name = document.getElementById('name').value.trim();
-    const age = document.getElementById('age').value;
-    const phone = document.getElementById('phone').value.trim();
-    const email = document.getElementById('email').value.trim();
-    
-    if (!name || !age || !phone || !email) {
-        alert('Please fill all required fields');
-        return;
-    }
-    
-    if (isNaN(age) || age < 1 || age > 120) {
-        alert('Please enter a valid age between 1 and 120');
-        return;
-    }
-    
-    if (!validateEmail(email)) {
-        alert('Please enter a valid email address');
-        return;
-    }
-    
-    if (!validatePhone(phone)) {
-        alert('Please enter a valid phone number');
-        return;
-    }
-    
-    // If validation passes, collect all data
-    const formData = {
-        name: name,
-        age: age,
-        phone: phone,
-        email: email,
-        height: document.getElementById('height').value,
-        weight: document.getElementById('weight').value,
-        problem: document.getElementById('problem').value.trim()
-    };
-    
-    // Send data to server (we'll use FormSubmit.co as a simple solution)
-    fetch('https://formsubmit.co/aarogyaaahar4@gmail.com', {
-        method: 'POST',
-        headers: { 
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-            name: formData.name,
-            age: formData.age,
-            phone: formData.phone,
-            email: formData.email,
-            height: formData.height,
-            weight: formData.weight,
-            problem: formData.problem,
-            _subject: 'New Patient Consultation Request',
-            _template: 'table'
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        alert('Thank you! Your information has been submitted successfully.');
-        document.getElementById('patientForm').reset();
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Thank you! Your information has been submitted successfully.',);
+<script>
+    document.getElementById('patientForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Clear previous errors
+        document.querySelectorAll('.error-message').forEach(el => el.remove());
+        
+        // Blocked email addresses
+        const blockedEmails = [
+            'abc@gmail.com',
+            'xyz@gmail.com', 
+            '123@gmail.com',
+            '1234@gmail.com',
+            'aarogyaaahar4@gmail.com'
+            // Add more emails to block as needed
+        ];
+        
+        // Get form values
+        const name = document.getElementById('name').value.trim();
+        const age = document.getElementById('age').value;
+        const phone = document.getElementById('phone').value.replace(/\D/g, '');
+        const email = document.getElementById('email').value.trim().toLowerCase();
+        const problem = document.getElementById('problem').value.toLowerCase();
+        
+        // Banned words list
+        const bannedWords = ['bc', 'mdl', 'benchod', 'teri maa di', 'love you', 'love', 'pyaar'];
+        // Add more words you want to block
+        
+        // Validation flags
+        let isValid = true;
+        
+        // Name validation
+        if (!name) {
+            showError('name', 'Full name is required');
+            isValid = false;
+        }
+        
+        // Age validation
+        if (!age || age < 1 || age > 120) {
+            showError('age', 'Please enter valid age (1-120)');
+            isValid = false;
+        }
+        
+        // Phone validation (exactly 10 digits)
+        if (!/^\d{10}$/.test(phone)) {
+            showError('phone', 'Phone must be 10 digits');
+            isValid = false;
+        }
+        
+        // Email validation
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            showError('email', 'Invalid email format');
+            isValid = false;
+        } else if (blockedEmails.includes(email)) {
+            showError('email', 'This email is not allowed');
+            isValid = false;
+        }
+        
+        // Problem description validation
+        const hasBannedWord = bannedWords.some(word => problem.includes(word));
+        if (hasBannedWord) {
+            showError('problem', 'Description contains inappropriate language');
+            isValid = false;
+        }
+        
+        if (isValid) {
+            // Form is valid - proceed with submission
+            alert('Form submitted successfully!');
+            document.getElementById('patientForm').reset();
+        }
     });
-});
-
-function validateEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
-}
-
-function validatePhone(phone) {
-    // Simple phone validation - adjust as needed
-    const re = /^[\d\s\-\(\)]{10,}$/;
-    return re.test(phone);
-}
+    
+    // Phone number formatting (auto-format to digits only)
+    document.getElementById('phone').addEventListener('input', function() {
+        this.value = this.value.replace(/\D/g, '').slice(0, 10);
+    });
+    
+    // Helper function to show errors
+    function showError(fieldId, message) {
+        const field = document.getElementById(fieldId);
+        const error = document.createElement('div');
+        error.className = 'error-message';
+        error.textContent = message;
+        field.parentNode.insertBefore(error, field.nextSibling);
+        field.focus();
+    }
+</script>
