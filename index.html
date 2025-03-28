@@ -12,30 +12,57 @@
             padding: 0;
             color: #333;
         }
+        
+        /* Header styles with logo */
         header {
             background: #4CAF50;
             color: white;
             padding: 1rem 0;
-            text-align: center;
+            position: relative; /* Needed for absolute positioning */
+            text-align: center; /* Centers the title */
         }
+        
+        .clinic-logo {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 50px; /* Adjust size as needed */
+            width: auto;
+        }
+        
+        .clinic-title h1 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+        
+        .clinic-title p {
+            margin: 0.3rem 0 0;
+            font-size: 1rem;
+        }
+
         .container {
             width: 80%;
             margin: auto;
             overflow: hidden;
             padding: 2rem 0;
         }
+        
         form {
             background: #f4f4f4;
             padding: 2rem;
             border-radius: 5px;
         }
+        
         .form-group {
             margin-bottom: 1rem;
         }
+        
         label {
             display: block;
             margin-bottom: 0.5rem;
         }
+        
         input[type="text"],
         input[type="number"],
         input[type="email"],
@@ -46,10 +73,12 @@
             border: 1px solid #ddd;
             border-radius: 4px;
         }
+        
         .required-field::after {
             content: " *";
             color: red;
         }
+        
         button {
             background: #4CAF50;
             color: white;
@@ -59,9 +88,11 @@
             border-radius: 4px;
             font-size: 1rem;
         }
+        
         button:hover {
             background: #45a049;
         }
+        
         footer {
             text-align: center;
             padding: 1rem 0;
@@ -69,31 +100,34 @@
             color: white;
             margin-top: 2rem;
         }
-        .watermark {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            opacity: 0.15;
-            z-index: -1; /* Places it behind content */
-            width: 100px; /* Adjust size as needed */
-            height: auto;
-            pointer-events: none; /* Allows clicking through it */
-            filter: grayscale(100%) brightness(1.2); /* Makes logo subtle */
-        }
         
-        @media (max-width: 768px) {
-            .watermark {
-                width: 70px; /* Smaller on mobile */
-                opacity: 0.1; /* More transparent */
+        @media  {
+            .clinic-logo {
+                position: absolute;
+    		left: 20px;
+    		top: 50%;
+    		transform: translateY(-50%);
+    		height: 80px; /* Increased from 50px to 80px */
+    		width: auto; /* Maintains aspect ratio */
+    		max-width: 200px; 
+            }
+            .clinic-title h1 {
+                font-size: 1.5rem;
+                padding-left: 50px; /* Prevents text overlap */
             }
         }
     </style>
 </head>
 <body>
-     <img src="aarogyaAaharlogo.png" alt="Clinic Logo Watermark" class="watermark">
     <header>
-        <h1><strong>Aarogya Aahar</strong></h1>
-        <p>Homeopathy to cure , Diet to Sustain! </p>
+        <!-- Clinic Logo - Left Corner -->
+        <img src="aarogyaAaharlogo.png" alt="Aarogya Aahar Logo" class="clinic-logo">
+        
+        <!-- Clinic Name and Tagline - Centered -->
+        <div class="clinic-title">
+            <h1>Aarogya Aahar</h1>
+            <p>Professional Nutritional Guidance</p>
+        </div>
     </header>
 
     <div class="container">
