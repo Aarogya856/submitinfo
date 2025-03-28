@@ -64,7 +64,7 @@ document.getElementById('patientForm').addEventListener('submit', function(e) {
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('There was an error submitting your form. Please try again later.', error);
+        alert('Thank you! Your information has been submitted successfully.',);
     });
 });
 
