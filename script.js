@@ -41,6 +41,7 @@
             showError('name', 'Full name is required');
             isValid = false;
             console.warn('Validation failed: Name is required');
+            alert('Please enter Name');
         }
         
         // Age validation
@@ -48,6 +49,7 @@
             showError('age', 'Please enter valid age (1-120)');
             isValid = false;
             console.warn(`Validation failed: Invalid age (${formData.age})`);
+            alert('Please enter valid age');
         }
         
         // Phone validation (exactly 10 digits)
@@ -55,6 +57,7 @@
             showError('phone', 'Phone must be 10 digits');
             isValid = false;
             console.warn(`Validation failed: Invalid phone (${formData.phone})`);
+            alert('Please enter a valid phone number');
         }
         
         // Email validation
@@ -62,6 +65,7 @@
             showError('email', 'Invalid email format');
             isValid = false;
             console.warn(`Validation failed: Invalid email format (${formData.email})`);
+            alert('Please enter a valid email');
         } else if (blockedEmails.includes(formData.email)) {
             showError('email', 'This email is not allowed');
             isValid = false;
@@ -74,6 +78,7 @@
             showError('problem', 'Description contains inappropriate language');
             isValid = false;
             console.warn('Validation failed: Banned word detected in problem description');
+            alert('Inappropriate language content!');
         }
         
         if (isValid) {
