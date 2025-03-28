@@ -63,7 +63,7 @@ document.getElementById('patientForm').addEventListener('submit', function(e) {
         document.getElementById('patientForm').reset();
     })
     .catch(error => {
-        console.error('Error:', error);
+        
         alert('Thank you! Your information has been submitted successfully.',);
     });
 });
